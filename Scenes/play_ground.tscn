@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://f6yafuhk2606"]
+
+[ext_resource type="PackedScene" uid="uid://csq5pm2b3oyq5" path="res://Scenes/GameObjects/Player.tscn" id="1_napsh"]
+
+[node name="PlayGround" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_napsh")]
+position = Vector2(577, 333)
+accelerationSpeed = 250.0
+friction = 0.01
