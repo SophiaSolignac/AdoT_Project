@@ -13,6 +13,7 @@ namespace Com.AdoT_Project.Management
         private const string NAME_PLAYER_DASH_UP = "playerDashUp";
         private const string NAME_PLAYER_DASH_RIGHT = "playerDashRight";
         private const string NAME_PLAYER_DASH_DOWN = "playerDashDown";
+        private const string NAME_PLAYER_DASH = "dash";
 
         public static class Player
 		{
@@ -29,6 +30,8 @@ namespace Com.AdoT_Project.Management
             private static float dashUpStrength => GetCorrectedStrength(NAME_PLAYER_DASH_UP);
             private static float dashRightStrength => GetCorrectedStrength(NAME_PLAYER_DASH_RIGHT);
             private static float dashDownStrength => GetCorrectedStrength(NAME_PLAYER_DASH_DOWN);
+            public static bool dashInput => Input.IsActionJustPressed(NAME_PLAYER_DASH);
+
 
             private static Vector2 direction = Vector2.Zero;
 			private static Vector2 dashDirection = Vector2.Zero;

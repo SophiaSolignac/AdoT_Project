@@ -50,7 +50,7 @@ namespace Com.AdoT_Project.GameObject
 		{
             acceleration = InputManager.Player.GetDirection() * accelerationSpeed;
 
-			if (velocity.Length() < 1) velocity = InputManager.Player.GetDashDirection() * dashAcceleration;
+			if (velocity.Length() < 1) velocity = InputManager.Player.dashInput ? InputManager.Player.GetDirection() * dashAcceleration : velocity;
 
             velocity *= Mathf.Pow(friction, pDelta);
 
