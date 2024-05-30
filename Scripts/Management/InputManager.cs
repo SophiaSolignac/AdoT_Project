@@ -8,11 +8,6 @@ namespace Com.AdoT_Project.Management
 		private const string NAME_PLAYER_GO_UP = "playerGoUp";
 		private const string NAME_PLAYER_GO_RIGHT = "playerGoRight";
 		private const string NAME_PLAYER_GO_DOWN = "playerGoDown";
-
-        private const string NAME_PLAYER_DASH_LEFT = "playerDashLeft";
-        private const string NAME_PLAYER_DASH_UP = "playerDashUp";
-        private const string NAME_PLAYER_DASH_RIGHT = "playerDashRight";
-        private const string NAME_PLAYER_DASH_DOWN = "playerDashDown";
         private const string NAME_PLAYER_DASH = "dash";
 
         public static class Player
@@ -25,11 +20,6 @@ namespace Com.AdoT_Project.Management
 			private static float goUpStrength => GetCorrectedStrength(NAME_PLAYER_GO_UP);
 			private static float goRightStrength => GetCorrectedStrength(NAME_PLAYER_GO_RIGHT);
 			private static float goDownStrength => GetCorrectedStrength(NAME_PLAYER_GO_DOWN);
-
-            private static float dashLeftStrength => GetCorrectedStrength(NAME_PLAYER_DASH_LEFT);
-            private static float dashUpStrength => GetCorrectedStrength(NAME_PLAYER_DASH_UP);
-            private static float dashRightStrength => GetCorrectedStrength(NAME_PLAYER_DASH_RIGHT);
-            private static float dashDownStrength => GetCorrectedStrength(NAME_PLAYER_DASH_DOWN);
             public static bool dashInput => Input.IsActionJustPressed(NAME_PLAYER_DASH);
 
 
@@ -47,15 +37,6 @@ namespace Com.AdoT_Project.Management
 				if (direction.Length() > 1f) direction = direction.Normalized();
 
                 return direction;
-            }
-
-            public static Vector2 GetDashDirection()
-            {
-                // Get Direction Based On Inputs
-                dashDirection.X = dashRightStrength - dashLeftStrength;
-                dashDirection.Y = dashDownStrength - dashUpStrength;
-
-                return dashDirection.Normalized();
             }
         }
 	}

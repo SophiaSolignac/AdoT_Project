@@ -17,8 +17,9 @@ namespace Com.AdoT_Project.GameObject
         [Export] private float friction = .1f;
 		// Properties
 		private Action<float> Move;
+		private Vector2 direction = Vector2.Zero;
 		private Vector2 acceleration = Vector2.Zero;
-		private Vector2 velocity = Vector2.Zero;
+		private float additionalAccelerationSpeed = 0f;
 		private Vector2 rotationVector = Vector2.Zero;
 
 		// ----------------~~~~~~~~~~~~~~~~~~~==========================# // Initialization
@@ -41,22 +42,36 @@ namespace Com.AdoT_Project.GameObject
 		// Set Modes
 		private void SetMoveStatic() => Move = MoveStatic;
 
-		private void SetMoveInput() => Move = MoveInput;
+		private void SetMoveInput()
+		{
+			Move = MoveInput;
+			UpDateDirection();
+		}
 
         // Movements
         private void MoveStatic(float pDelta) { }
 
 		private void MoveInput(float pDelta)
 		{
-            acceleration = InputManager.Player.GetDirection() * accelerationSpeed;
+            additionalAccelerationSpeed = InputManager.Player.dashInput ? dashAcceleration : additionalAccelerationSpeed;
 
-			if (velocity.Length() < 1) velocity = InputManager.Player.dashInput ? InputManager.Player.GetDirection() * dashAcceleration : velocity;
+            acceleration = InputManager.Player.GetDirection() * (accelerationSpeed);
+			if (additionalAccelerationSpeed > 1f && acceleration.Length() <= 0f) acceleration = direction * additionalAccelerationSpeed;
+			else acceleration += InputManager.Player.GetDirection() * additionalAccelerationSpeed;
+            additionalAccelerationSpeed *= Mathf.Pow(friction, pDelta);
 
-            velocity *= Mathf.Pow(friction, pDelta);
+            Position += acceleration * pDelta;
 
-            Position += (acceleration + velocity) * pDelta;
+            if (InputManager.Player.GetDirection().Length() > 0) Rotation = Mathf.LerpAngle(Rotation, Mathf.Atan2(acceleration.Y, acceleration.X), .25f);
 
-            if (InputManager.Player.GetDirection().Length() > 0) Rotation = Mathf.LerpAngle(Rotation, Mathf.Atan2(acceleration.Y, acceleration.X), .5f);
+			UpDateDirection();
+        }
+
+		private void UpDateDirection()
+		{
+            direction = new Vector2();
+            direction.X = Mathf.Cos(Rotation);
+            direction.Y = Mathf.Sin(Rotation);
         }
 	}
 }
